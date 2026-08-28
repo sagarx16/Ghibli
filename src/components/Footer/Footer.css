@@ -1,0 +1,33 @@
+.footer{
+    padding: 30px 4%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.footer-icon{
+    display: flex;
+    gap: 40px;
+    margin: 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer-icon img{
+    width: 4vh;
+    cursor: pointer;
+    border-radius: 20%;
+    
+}
+.footer ul{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 15px;
+    margin-bottom: 10px;
+    list-style: none;
+}
+.copyright-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    margin-top: 100px;
+}
