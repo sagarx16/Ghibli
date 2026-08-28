@@ -2,16 +2,21 @@ import './Player.css'
 import backarrow_icon from '../../../assets/backarrow.jpg'
 import { useParams, useNavigate } from 'react-router-dom'
 
+interface PlayerParams {
+  id: string
+  [key: string]: string | undefined
+}
+
 const Player = () => {
-  const { id } = useParams()
+  const { id } = useParams<PlayerParams>()
   const navigate = useNavigate()
 
   // Map of movie IDs to YouTube trailer embed URLs
-  const trailerMap = {
+  const trailerMap: Record<string, string> = {
     default: 'https://www.youtube.com/embed/YYXBWucnot8',
   }
 
-  const trailerSrc = trailerMap[id] || trailerMap.default
+  const trailerSrc = (id && trailerMap[id]) || trailerMap.default
 
   return (
     <div className="player">

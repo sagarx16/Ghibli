@@ -1,17 +1,19 @@
 import './Login.css'
 import logo from '../../../assets/logo.png'
 import heroBg from '../../../assets/hero.jpg'
-import { useState } from 'react'
+import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+type SignState = 'Sign In' | 'Sign Up'
+
 const Login = () => {
-  const [signState, setSignState] = useState('Sign In')
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [signState, setSignState] = useState<SignState>('Sign In')
+  const [name, setName] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     // Navigate to home after login/signup
     navigate('/')
@@ -28,20 +30,20 @@ const Login = () => {
               type="text"
               placeholder="Your name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
             />
           )}
           <input
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           />
           <button type="submit">{signState}</button>
           <div className="form-help">

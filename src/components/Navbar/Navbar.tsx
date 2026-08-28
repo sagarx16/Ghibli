@@ -7,25 +7,26 @@ import caret from '../../assets/caret.png'
 import { useRef, useEffect } from 'react'
 
 const Navbar = () => {
+  const navRef = useRef<HTMLDivElement>(null)
 
-    const navRef = useRef();
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!navRef.current) return
+      if (window.scrollY >= 80) {
+        navRef.current.classList.add('nav-dark')
+      } else {
+        navRef.current.classList.remove('nav-dark')
+      }
+    }
 
-    useEffect(() => {
-      const handleScroll = () => {
-        if (window.scrollY >= 80) {
-          navRef.current.classList.add('nav-dark')
-        } else {
-          navRef.current.classList.remove('nav-dark')
-        }
-      };
+    window.addEventListener('scroll', handleScroll)
 
-      window.addEventListener('scroll', handleScroll);
+    // Clean up the listener when the component unmounts
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
-      // Clean up the listener when the component unmounts
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
-    }, [])
   return (
     <div ref={navRef} className="navbar">
       <div className="navbar-left">
@@ -34,18 +35,18 @@ const Navbar = () => {
           <li>Home</li>
           <li>TV shows</li>
           <li>Movies</li>
-          <li>New & Popular</li>
+          <li>New &amp; Popular</li>
           <li>My List</li>
           <li>Browse By Language</li>
         </ul>
       </div>
       <div className="navbar-right">
-        <img src={search} alt="search logo" className='icons'/>
-        <p>Children</p> 
-        <img src={bell} alt="bell logo" className='icons'/>
+        <img src={search} alt="search logo" className="icons" />
+        <p>Children</p>
+        <img src={bell} alt="bell logo" className="icons" />
         <div className="navbar-profile">
-          <img src={profile} alt="profile logo" className='profile'/>
-          <img src={caret} alt="caret logo" className='caret'/>
+          <img src={profile} alt="profile logo" className="profile" />
+          <img src={caret} alt="caret logo" className="caret" />
 
           {/* Dropdown */}
           <div className="navbar-dropdown">
@@ -61,4 +62,3 @@ const Navbar = () => {
 }
 
 export default Navbar
- 
