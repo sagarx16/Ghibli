@@ -1,56 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import "tailwindcss";
 
-/* ── Design tokens ── */
-:root {
-  --color-bg: #0a0a0a;
-  --color-surface: #141414;
-  --color-surface-2: #1f1f1f;
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-text: #e8e8e8;
-  --color-text-muted: rgba(255, 255, 255, 0.55);
-  --color-accent: #7c5cfc;
-  --color-accent-2: #5b8cff;
-  --color-red: #e50914;
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --transition: 0.2s ease;
-  --font: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --navbar-h: 68px;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  body {
+    background-color: #0a0a0a;
+    color: #e8e8e8;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
 }
 
-/* ── Reset ── */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Custom utility class for blue icon filter */
+.icon-blue {
+  filter: invert(55%) sepia(80%) saturate(500%) hue-rotate(190deg) brightness(105%);
 }
 
-html {
-  scroll-behavior: smooth;
+.icon-blue:hover {
+  filter: invert(55%) sepia(80%) saturate(700%) hue-rotate(190deg) brightness(120%) drop-shadow(0 0 8px rgba(91, 140, 255, 0.6));
 }
 
-body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  font-family: var(--font);
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
