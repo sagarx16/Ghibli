@@ -1,7 +1,9 @@
+'use client'
+
 import { useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/navigation'
 import './TitleCards.css'
-import cards_data from '../../assets/cards/Cards_data'
+import cards_data from '@/data/cards'
 
 interface TitleCardsProps {
   title?: string
@@ -10,7 +12,7 @@ interface TitleCardsProps {
 
 const TitleCards = ({ title, category: _category }: TitleCardsProps) => {
   const cardsRef = useRef<HTMLDivElement>(null)
-  const navigate = useNavigate()
+  const router = useRouter()
 
   useEffect(() => {
     const slider = cardsRef.current
@@ -56,7 +58,6 @@ const TitleCards = ({ title, category: _category }: TitleCardsProps) => {
     slider.addEventListener('mousemove', onMouseMove)
     slider.addEventListener('wheel', onWheel, { passive: false })
 
-    // Clean up all listeners on unmount
     return () => {
       slider.removeEventListener('mousedown', onMouseDown)
       slider.removeEventListener('mouseup', onMouseUp)
@@ -74,8 +75,9 @@ const TitleCards = ({ title, category: _category }: TitleCardsProps) => {
           <div
             className="card"
             key={card.id}
-            onClick={() => navigate(`/player/${card.id}`)}
+            onClick={() => router.push(`/player/${card.id}`)}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={card.image} alt={card.name} loading="lazy" />
             <p>{card.name}</p>
           </div>

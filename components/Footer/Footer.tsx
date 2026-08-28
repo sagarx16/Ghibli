@@ -1,17 +1,17 @@
 import './Footer.css'
-import youtube from '../../assets/youtube.png'
-import x from '../../assets/x.png'
-import instagram from '../../assets/instagram.png'
-import facebook from '../../assets/facebook.png'
 
 const Footer = () => {
   return (
     <div className="footer">
       <div className="footer-icon">
-        <img src={facebook} alt="Facebook" />
-        <img src={instagram} alt="Instagram" />
-        <img src={x} alt="X (Twitter)" />
-        <img src={youtube} alt="YouTube" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/facebook.png" alt="Facebook" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/instagram.png" alt="Instagram" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/x.png" alt="X (Twitter)" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/youtube.png" alt="YouTube" />
       </div>
       <ul>
         <li>Audio Description</li>

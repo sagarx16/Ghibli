@@ -1,27 +1,30 @@
-import './Login.css'
-import logo from '../../../assets/logo.png'
-import heroBg from '../../../assets/hero.jpg'
+'use client'
+
+import './login.css'
 import { useState, type ChangeEvent, type FormEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 type SignState = 'Sign In' | 'Sign Up'
 
-const Login = () => {
+export default function LoginPage() {
   const [signState, setSignState] = useState<SignState>('Sign In')
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const navigate = useNavigate()
+  const router = useRouter()
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Navigate to home after login/signup
-    navigate('/')
+    router.push('/')
   }
 
   return (
-    <div className="login" style={{ backgroundImage: `url(${heroBg})` }}>
-      <img src={logo} alt="Ghibli Logo" />
+    <div className="login">
+      <Link href="/">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/logo.png" alt="Ghibli Logo" />
+      </Link>
       <div className="login-form">
         <h1>{signState}</h1>
         <form onSubmit={handleSubmit}>
@@ -71,5 +74,3 @@ const Login = () => {
     </div>
   )
 }
-
-export default Login

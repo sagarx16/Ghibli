@@ -1,10 +1,8 @@
-import './Navbar.css'
-import logo from '../../assets/logo.png'
-import search from '../../assets/search.png'
-import bell from '../../assets/bell.png'
-import profile from '../../assets/profile.png'
-import caret from '../../assets/caret.png'
+'use client'
+
 import { useRef, useEffect } from 'react'
+import Link from 'next/link'
+import './Navbar.css'
 
 const Navbar = () => {
   const navRef = useRef<HTMLDivElement>(null)
@@ -20,20 +18,19 @@ const Navbar = () => {
     }
 
     window.addEventListener('scroll', handleScroll)
-
-    // Clean up the listener when the component unmounts
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
     <div ref={navRef} className="navbar">
       <div className="navbar-left">
-        <img src={logo} alt="Ghibli logo" />
+        <Link href="/">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/assets/logo.png" alt="Ghibli logo" />
+        </Link>
         <ul>
-          <li>Home</li>
-          <li>TV shows</li>
+          <li><Link href="/">Home</Link></li>
+          <li>TV Shows</li>
           <li>Movies</li>
           <li>New &amp; Popular</li>
           <li>My List</li>
@@ -41,12 +38,16 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-right">
-        <img src={search} alt="search logo" className="icons" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/search.png" alt="Search" className="icons" />
         <p>Children</p>
-        <img src={bell} alt="bell logo" className="icons" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/bell.png" alt="Notifications" className="icons" />
         <div className="navbar-profile">
-          <img src={profile} alt="profile logo" className="profile" />
-          <img src={caret} alt="caret logo" className="caret" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/assets/profile.png" alt="Profile" className="profile" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/assets/caret.png" alt="Menu" className="caret" />
 
           {/* Dropdown */}
           <div className="navbar-dropdown">
