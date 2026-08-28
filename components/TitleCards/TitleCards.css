@@ -1,26 +1,44 @@
 .title-cards {
-  margin-top: 60px;
+  margin-top: 40px;
+  padding: 0 0 8px;
 }
 
+/* Section heading */
 .title-cards h2 {
-    padding-left: 20px;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-  font-weight: 600;
+  padding-left: clamp(16px, 4vw, 48px);
+  margin-bottom: 16px;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
+.title-cards h2::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 18px;
+  background: linear-gradient(to bottom, var(--color-accent), var(--color-accent-2));
+  border-radius: 2px;
+}
+
+/* ── Scrollable row ── */
 .card-list {
-  width: 100vw;
   display: flex;
-  gap: 40px;
-  margin-bottom: 50px;
-  padding: 10px 20px;
-  overflow-x: scroll;   
-  overflow-y: hidden;  
-  padding-bottom: 16px;
+  gap: clamp(10px, 2vw, 20px);
+  padding: 8px clamp(16px, 4vw, 48px) 24px;
+  overflow-x: auto;
+  overflow-y: visible;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   cursor: grab;
+  scroll-behavior: smooth;
+  /* Give cards room to scale up without clipping */
+  padding-top: 20px;
+  padding-bottom: 28px;
 }
 
 .card-list::-webkit-scrollbar {
@@ -30,65 +48,94 @@
 .card-list.dragging {
   cursor: grabbing;
   user-select: none;
+  scroll-behavior: auto;
 }
 
+/* ── Card ── */
 .card {
   position: relative;
   flex-shrink: 0;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   overflow: hidden;
-  transition: transform 0.3s ease;
+  cursor: pointer;
+  transform-origin: center bottom;
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.35s ease;
 }
 
 .card:hover {
-  transform: scale(1.1);
+  transform: scale(1.08) translateY(-6px);
   z-index: 10;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
+/* Card image */
 .card img {
-  width: 184px;        /* 184 → 260 */
-  height: 276px;       /* 276 → 390 */
+  width: clamp(130px, 15vw, 185px);
+  height: calc(clamp(130px, 15vw, 185px) * 1.5);
   object-fit: cover;
   display: block;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: transform 0.35s ease;
 }
 
+.card:hover img {
+  transform: scale(1.03);
+}
+
+/* Title overlay — hidden by default, revealed on hover */
 .card p {
-  position: absolute;
-  bottom: 12px;
-  left: 10px;
-  right: 10px;
-  margin: 0;
-  color: white;
-  font-size: 1.25rem;
-  font-weight: 600;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
-}
-
-.card::after {
-  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 80px;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
-  border-radius: 0 0 8px 8px;
-  pointer-events: none;
+  margin: 0;
+  padding: 36px 12px 14px;
+  color: #ffffff;
+  font-size: clamp(0.7rem, 1.1vw, 0.88rem);
+  font-weight: 600;
+  font-family: var(--font);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.92));
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  transform: translateY(4px);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-@media (max-width: 768px) {
-  .card img {
-    width: 140px;
-    height: 210px;
-  }
-.title-cards h2 {
-    font-size: 1.3rem;
+.card:hover p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Play icon overlay on hover */
+.card::after {
+  content: '▶';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: var(--radius-md);
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+/* ── Responsive tweaks ── */
+@media (max-width: 480px) {
+  .card-list {
+    gap: 10px;
   }
 
-  .card p {
-    font-size: 0.78rem;
+  .title-cards {
+    margin-top: 24px;
   }
 }

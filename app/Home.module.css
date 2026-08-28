@@ -1,106 +1,192 @@
 /* ── Page wrapper ── */
 .home {
-  background: #000;
+  background: var(--color-bg);
   min-height: 100vh;
 }
 
 /* ── Hero section ── */
 .hero {
   position: relative;
-  width: 100vw;
+  width: 100%;
+  height: 100vh;
+  min-height: 500px;
   overflow: hidden;
 }
 
 /* Full-bleed banner image */
 .hero > img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center top;
-  display: block;
 }
 
-/* Bottom gradient fade so caption reads cleanly */
-.hero::after {
+/* Multi-directional gradient fade */
+.hero::before {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 55%;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.95) 0%,
-    rgba(0, 0, 0, 0.6) 50%,
-    transparent 100%
-  );
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, transparent 60%),
+    linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.3) 40%, transparent 70%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, transparent 20%);
+  z-index: 1;
   pointer-events: none;
 }
 
 /* ── Hero caption block — bottom-left ── */
 .herocaption {
   position: absolute;
-  bottom: 20px;
-  left: 48px;
+  bottom: clamp(24px, 5vw, 80px);
+  left: clamp(20px, 5vw, 60px);
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
-  width: 480px;
+  gap: 20px;
+  width: min(520px, calc(100% - 40px));
+  animation: fadeUp 0.8s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Movie title badge */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.hero-badge span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  display: inline-block;
+  box-shadow: 0 0 8px var(--color-accent);
+}
+
+/* Movie title */
+.hero-title {
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.75) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
 }
 
 /* Description paragraph */
 .herocaption p {
   width: 100%;
-  color: #e8e8e8;
-  font-size: 16px;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: clamp(13px, 1.5vw, 16px);
+  font-family: var(--font);
+  line-height: 1.75;
   margin: 0;
-  text-align: left;
-  white-space: normal;
-  word-break: normal;
-  overflow-wrap: break-word;
-  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.9);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* ── Hero buttons ── */
 .hero-btns {
   display: flex;
-  gap: 10px;
-  margin-bottom: 0;
-}
-
-.hero-btns .btn img {
-  width: 25px;
-  border-radius: 50px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 5px 15px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #e8e8e8;
-  background-color: rgba(51, 51, 51, 0.7);
+  gap: 10px;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 600;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  white-space: nowrap;
 }
 
-.btn:hover {
-  background-color: rgba(51, 51, 51, 0.9);
-  transform: scale(1.1);
+.btn img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
+/* Primary play button */
+.btn:first-child {
+  background: #ffffff;
+  color: #000000;
+}
+
+.btn:first-child img {
+  filter: none;
+}
+
+.btn:first-child:hover {
+  background: rgba(255, 255, 255, 0.85);
+  transform: scale(1.04);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
+}
+
+/* Secondary info button */
 .dark-btn {
-  background-color: rgba(51, 51, 51, 0.7);
+  background: rgba(109, 109, 110, 0.7);
+  color: #ffffff;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.15);
 }
 
+.dark-btn:hover {
+  background: rgba(109, 109, 110, 0.9);
+  transform: scale(1.04);
+}
+
+/* ── More cards section ── */
 .more-cards {
-  padding-top: 10px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .herocaption {
+    bottom: 80px;
+  }
+
+  .hero-title {
+    font-size: 26px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .hero-btns {
+    gap: 8px;
+  }
 }
